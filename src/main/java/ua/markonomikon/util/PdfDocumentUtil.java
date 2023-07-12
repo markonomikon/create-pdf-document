@@ -1,8 +1,5 @@
 package ua.markonomikon.util;
 
-import io.quarkus.qute.Engine;
-import io.quarkus.qute.Template;
-import io.quarkus.qute.TemplateInstance;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
@@ -13,7 +10,7 @@ import ua.markonomikon.model.Invoice;
 import java.io.IOException;
 
 public class PdfDocumentUtil {
-    public static void createPdf(String outputFile, String text) throws IOException {
+    public static void createPdf(String outputFile, Customer customer, Invoice invoice) throws IOException {
         PDDocument document = new PDDocument();
         PDPage page = new PDPage(PDRectangle.A4);
         document.addPage(page);
@@ -23,23 +20,31 @@ public class PdfDocumentUtil {
         contentStream.setLeading(14.5f);
 
         contentStream.beginText();
-        contentStream.newLineAtOffset(25, 700);
+        contentStream.newLineAtOffset(15, 800);
 
-        // Write your content here
-        contentStream.showText(text);
+        contentStream.showText("Name: " + customer.name);
+        contentStream.newLine();
+        contentStream.showText("Surname: " + customer.surname);
+        contentStream.newLine();
+        contentStream.showText("Street: " + customer.street);
+        contentStream.newLine();
+        contentStream.showText("City: " + customer.city);
+        contentStream.newLine();
+        contentStream.showText("Country: " + customer.country);
+        contentStream.newLine();
+        contentStream.newLine();
+        contentStream.showText("Description: " + invoice.description);
+        contentStream.newLine();
+        contentStream.showText("Date: " + invoice.date);
+        contentStream.newLine();
+        contentStream.showText("Price: " + invoice.price);
+        contentStream.newLine();
 
         contentStream.endText();
         contentStream.close();
 
         document.save(outputFile);
         document.close();
-    }
-    public static String getPdfReceiptContent(Engine engine, Customer customer, Invoice invoice) {
-        Template myTemplatePdf = engine.parse("pdf-document.html");
-        TemplateInstance templateInstancePdf = myTemplatePdf
-                .data("customer", customer)
-                .data("invoice", invoice);
-        return templateInstancePdf.render();
     }
 }
 
