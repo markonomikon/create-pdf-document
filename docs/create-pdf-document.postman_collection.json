@@ -1,0 +1,33 @@
+{
+	"info": {
+		"_postman_id": "3d6ebb14-4bde-476e-8098-a79efcd97f8f",
+		"name": "create-pdf-document",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27753746"
+	},
+	"item": [
+		{
+			"name": "Get PDF",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/pdf",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"pdf"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
